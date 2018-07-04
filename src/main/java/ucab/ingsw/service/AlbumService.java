@@ -68,26 +68,32 @@ public class AlbumService {
 
         }
     }
-
-    public ResponseEntity<Object> AlbumList(String id){
+public ResponseEntity<Object> deleteAlbum(DeleteAlbumCommand command, String id){
         User user = userService.searchUserById(id);
-        if (user==null) {
-            log.info("NO EXISTE EL USUARIO CON ID={}", id);
-            return ResponseEntity.badRequest().body("NO EXISTE EL USUARIO");
+        if (!(command.getPassword().equals(user.getPassword()))) return  ResponseEntity.badRequest().body(buildNotifyResponse("LA CONTRASEÑA NO ES LA ADECUADA"));
+        Album album2 = searchAlbumById(command.getAlbumId());
+        if(user==null || album2==null || !user.getAlbums().contains(album2) ){
+            return ResponseEntity.badRequest().body(buildNotifyResponse("CREDENCIALES INVÁLIDAS"));
         }
-        else {
-            List<AlbumResponse> albumList = createAlbumList(user);
-            if(albumList.isEmpty()){
-                log.info("LA LISTA DEL USUARIO SE ENCUENTRA VACÍA");
-                return ResponseEntity.ok().body("LA LISTA SE ENCUENTRA VACÍA");
+        else{
+            Album album = albumRepository.findById(Long.parseLong(command.getAlbumId())).get();
+            album.getMedia().forEach(it->{
+                mediaRepository.deleteById(it);
+            });
+            boolean success = user.getAlbums().remove(Long.parseLong(command.getAlbumId()));
+            if(success){
+                log.info("ALBUM ={} ELIMINADO", command.getAlbumId());
+
+                userRepository.save(user);
+                albumRepository.deleteById(Long.parseLong(command.getAlbumId()));
+                return ResponseEntity.ok().body("PROCESO COMPLETADO CON ÉXITO");
             }
-            else {
-                log.info("LISTA HALLADA");
-                return ResponseEntity.ok(albumList);
+            else{
+                log.error("ALBUM NO PUDO SER ELIMINADO");
+                return ResponseEntity.badRequest().body(buildNotifyResponse("ALBUM NO PUDO SER ELIMINADO"));
             }
         }
     }
-
 
     public List<AlbumResponse> createAlbumList(User user){
         List<AlbumResponse> albumList = new ArrayList<>();
