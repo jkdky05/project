@@ -326,8 +326,9 @@ public class UserService {
     public ResponseEntity<Object> deleteFriend(FriendCommand command){
         User user = searchUserById(command.getId());
         
-        if(!(command.getContrasena().equalsIgnoreCase(user.getPassword())))
+        if(!(command.getContrasena().equalsIgnoreCase(user.getPassword()))){
             return ResponseEntity.badRequest().body(buildNotifyResponse("contrasena del usuario no es la correcta"));
+        }
         if(user==null) {
             return ResponseEntity.badRequest().body(buildNotifyResponse("USUARIO NO EXISTE"));
         }
