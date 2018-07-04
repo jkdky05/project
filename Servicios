@@ -1,0 +1,66 @@
+-REQUEST TIPO GET (BÚSQUEDA DE LAS APIS)
+-https://ing-software2018.herokuapp.com/search/apis/?query="searchTerm"&id="id_del_usuario"
+-RETORNA EL CONTENIDO DE LAS TRES APIS
+-"searchTerm"= TÉRMINO DE BÚSQUEDA
+
+-REQUEST TIPO GET (CONSEGUIR LA LISTA DE AMIGOS DE UN USUARIO)
+-https://ing-software2018.herokuapp.com/user/friendsList/"id_del_usuario"
+
+RETORNA UN JSON CON INFORMACIÓN DETALLADA SOBRE LOS AMIGOS DEL USUARIO
+
+-REQUEST TIPO POST (AGREGAR AMIGO)
+-https://ing-software2018.herokuapp.com/user/add/friend
+{
+ "id": "1530155000725",
+ "idFriend": "1530386649486",
+ "contraseña": "xxxxxxxx"
+}
+
+-REQUEST TIPO POST (AGREGAR MEDIA)
+https://ing-software2018.herokuapp.com/media/register/"id_del_album"
+{
+ "url": "https://open.spotify.com/track/0CuQ686S9l2fLgKdbD6oWR"
+}
+
+
+-REQUEST TIPO POST (AGREGAR ALBUM)
+https://ing-software2018.herokuapp.com/album/register/"id_del_usuario"
+{
+ "nombreAlbum": "xxxx",
+ "descripcion": "xxxx"
+}
+
+-REQUEST TIPO GET (CONSEGUIR LISTA DE MEDIAS)
+https://ing-software2018.herokuapp.com/media/list/"id_del_album"
+
+-REQUEST TIPO GET (CONSEGUIR LISTA DE ALBUMES)
+https://ing-software2018.herokuapp.com/album/list/"id_del_usuario"
+
+-REQUEST TIPO POST (REGISTRAR USUARIO)
+https://ing-software2018.herokuapp.com/user/register
+{
+ "firstName": "xxxx",
+ "lastName": "xxxx",
+ "email": "xxxx",
+ "password": "xxxx",
+ "confirmationPassword": "xxxx",
+ "dateOfBirth": "10/25/1999",
+ "tokenInstagram": "xxxx"
+}
+
+-REQUEST TIPO POST (ACTUALIZAR DATOS DE UN USUARIO)
+
+https://ing-software2018.herokuapp.com/user/update/1530497197365
+{
+ "firstName": "xxxx",
+ "lastName": "xxxx",
+ "email": "xxxx",
+ "password": "xxxx",
+ "confirmationPassword": "xxxx",
+ "dateOfBirth": "xxxx",
+ "tokenInstagram": "xxxx"
+}
+
+-REQUEST TIPO GET (CONSEGUIR LISTA DE AMIGOS DE UN USUARIO)
+https://ing-software2018.herokuapp.com/user/friendsList/"ID_DEL_USUARIO"
+
